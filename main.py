@@ -10,8 +10,7 @@ def main():
                 active = False
 
         en.win_init()
-        en.draw.img("dummy.png", 100, 100)
-        en.draw.img("dummy.png", 300, 300, 200, 100, 90)
+        en.draw.img("board1024.png", *en.align.middle(704, 704), scale_x=704, scale_y=704)
         pygame.display.update()
         clock.tick(en.RATE)
 
