@@ -61,6 +61,22 @@ class align:
 
         return 0
 
+    @staticmethod
+    def centerX(obj_x: int) -> int:
+        middleX = 0
+        
+        screen_x = WIDTH
+
+        for curX in range(screen_x + 1):
+            margin_left  = curX
+            margin_right = screen_x - (margin_left + obj_x)
+
+            if margin_left == margin_right:
+                middleX = curX
+                break
+
+        return middleX
+
 
 class Animation:
     def __init__(self, folder) -> None:
@@ -80,6 +96,7 @@ class draw:
 
         WINDOW.blit(img, (x, y))
         #pygame.display.update()
+
 
 if __name__ == "__main__":
     #clock = pygame.time.Clock()
