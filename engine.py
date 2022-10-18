@@ -10,7 +10,7 @@ WHITE = (255, 255, 255)
 
 def win_init():
     WINDOW.fill(WHITE)
-    pygame.display.update()
+    #pygame.display.update()
 
 class draw:
     @staticmethod
@@ -24,7 +24,7 @@ class draw:
             img = pygame.transform.rotate(img, rotate)
 
         WINDOW.blit(img, (x, y))
-        pygame.display.update()
+        #pygame.display.update()
 
 if __name__ == "__main__":
     clock = pygame.time.Clock()
