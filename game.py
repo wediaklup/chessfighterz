@@ -1,6 +1,5 @@
-from tkinter.ttk import _Padding
 import pygame
-import engine
+import engine as en
 
 class Opponent:
     def __init__(self, id, name, hp) -> None:
@@ -14,28 +13,29 @@ class Board:
         margX = x
         margY = y
 
-        PADDING = 102
+        PADDING = 64
+        SIDE_SZ = 64
 
         self.col_coord = {
-            "A": margX + PADDING + (0 * 64),
-            "B": margX + PADDING + (1 * 64),
-            "C": margX + PADDING + (2 * 64),
-            "D": margX + PADDING + (3 * 64),
-            "E": margX + PADDING + (4 * 64),
-            "F": margX + PADDING + (5 * 64),
-            "G": margX + PADDING + (6 * 64),
-            "H": margX + PADDING + (7 * 64),
+            "A": margX + PADDING + (0 * SIDE_SZ),
+            "B": margX + PADDING + (1 * SIDE_SZ),
+            "C": margX + PADDING + (2 * SIDE_SZ),
+            "D": margX + PADDING + (3 * SIDE_SZ),
+            "E": margX + PADDING + (4 * SIDE_SZ),
+            "F": margX + PADDING + (5 * SIDE_SZ),
+            "G": margX + PADDING + (6 * SIDE_SZ),
+            "H": margX + PADDING + (7 * SIDE_SZ),
         }
 
         self.row_coord = {
-            1: margY + PADDING + (0 * 64),
-            2: margY + PADDING + (1 * 64),
-            3: margY + PADDING + (2 * 64),
-            4: margY + PADDING + (3 * 64),
-            5: margY + PADDING + (4 * 64),
-            6: margY + PADDING + (5 * 64),
-            7: margY + PADDING + (6 * 64),
-            8: margY + PADDING + (7 * 64),
+            1: margY + PADDING + (0 * SIDE_SZ),
+            2: margY + PADDING + (1 * SIDE_SZ),
+            3: margY + PADDING + (2 * SIDE_SZ),
+            4: margY + PADDING + (3 * SIDE_SZ),
+            5: margY + PADDING + (4 * SIDE_SZ),
+            6: margY + PADDING + (5 * SIDE_SZ),
+            7: margY + PADDING + (6 * SIDE_SZ),
+            8: margY + PADDING + (7 * SIDE_SZ),
         }
 
         self.field_coords = {
@@ -112,11 +112,47 @@ class Board:
             "H8": (self.col_coord["H"], self.row_coord[8]),
         }
 
+    def draw_fselector(self, field: str):
+        en.draw.img("fieldSelector640.png", *self.field_coords[field])
+
+    def draw_rselector(self, row: str):
+        en.draw.img("rowSelector640.png", *self.field_coords[f"{row}1"])
+
+    def draw_fselector_target(self, field: str):
+        en.draw.img("targetFieldSelector640.png", *self.field_coords[field])
+
+    def draw_rselector_target(self, row: str):
+        en.draw.img("targetRowSelector640.png", *self.field_coords[f"{row}1"])
+
+    def draw(self):
+        en.draw.img("board640.png", self.x, self.y)
+
 class Game:
     def __init__(self, id, opponent) -> None:
         self.id    = id
         self.opponent = opponent
 
     def run(self):
+        clock = pygame.time.Clock()
         running = True
+
+        while running:
+            board = Board(en.align.centerX(640), en.align.bottom(640))
+            board.draw()
+            en.draw.img("actWin300.png", 0, en.align.bottom(700))
+
+            for event in pygame.event.get():
+                if event.type == pygame.K_DOWN:
+                    print("down")
+                elif event.type == pygame.K_x:
+                    print("x")
+                    running = False
+                elif event.type == pygame.QUIT:
+                    print("quit")
+                    running = False
+
+            pygame.display.flip()
+            clock.tick(en.RATE)
+
+
 

@@ -1,5 +1,6 @@
 import pygame
 import engine as en
+import game   as gm
 
 def main():
     clock = pygame.time.Clock()
@@ -10,7 +11,9 @@ def main():
                 active = False
 
         en.win_init()
-        en.draw.img("board1024.png", en.align.centerX(640), en.align.bottom(640), scale_x=640, scale_y=640)
+        game = gm.Game("root/test", "mangus")
+        game.run()
+        print("exited")
         pygame.display.flip()
         clock.tick(en.RATE)
 
