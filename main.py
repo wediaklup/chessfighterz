@@ -11,6 +11,7 @@ def main():
                 active = False
 
         en.win_init()
+        en.draw.img("dummy.png", 100, 100)
 
     pygame.quit()
 

@@ -1,5 +1,3 @@
-from operator import xor
-from xxlimited import Str
 import pygame
 import os
 
@@ -26,3 +24,18 @@ class draw:
             img = pygame.transform.rotate(img, rotate)
 
         WINDOW.blit(img, (x, y))
+        pygame.display.update()
+
+if __name__ == "__main__":
+    clock = pygame.time.Clock()
+    active = True
+    while active:
+        clock.tick(RATE)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                active = False
+
+        win_init()
+        draw.img("dummy.png", 2, 2)
+
+    pygame.quit()
