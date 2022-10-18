@@ -8,6 +8,8 @@ pygame.display.set_caption("ChessFighterz Development")
 
 WHITE = (255, 255, 255)
 
+pygame.init()
+
 def win_init():
     WINDOW.fill(WHITE)
     #pygame.display.update()
