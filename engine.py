@@ -4,7 +4,7 @@ import os
 RATE  = 60
 WIDTH, HEIGHT = 1600, 900
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Hello World")
+pygame.display.set_caption("ChessFighterz Development")
 
 WHITE = (255, 255, 255)
 
