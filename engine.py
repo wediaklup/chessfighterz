@@ -56,8 +56,6 @@ class align:
 
             if margin_bottom == 0:
                 return curY
-            else:
-                break
 
         return 0
 
