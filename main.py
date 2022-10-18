@@ -11,7 +11,7 @@ def main():
 
         en.win_init()
         en.draw.img("board1024.png", *en.align.middle(704, 704), scale_x=704, scale_y=704)
-        pygame.display.update()
+        pygame.display.flip()
         clock.tick(en.RATE)
 
     pygame.quit()
