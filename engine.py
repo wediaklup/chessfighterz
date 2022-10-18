@@ -1,5 +1,6 @@
 import pygame
 
+RATE  = 60
 WIDTH, HEIGHT = 1600, 900
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Hello World")
