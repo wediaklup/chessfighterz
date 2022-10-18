@@ -7,16 +7,21 @@ WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("ChessFighterz Development")
 
 WHITE = (255, 255, 255)
+BLACK = (0,   0,   0  )
 
 pygame.init()
 
 def win_init():
-    WINDOW.fill(WHITE)
+    WINDOW.fill(BLACK)
     #pygame.display.update()
 
 class align:
     @staticmethod
-    def middle(obj_x: int, obj_y: int) -> tuple:
+    def top(obj_x: int, obj_y: int) -> int:
+        ...
+
+    @staticmethod
+    def center(obj_x: int, obj_y: int) -> tuple:
         middleX = 0
         middleY = 0
         
@@ -40,6 +45,27 @@ class align:
                 break
 
         return middleX, middleY
+
+    @staticmethod
+    def bottom(obj_y: int) -> int:
+        screen_y = HEIGHT
+
+        for curY in range(screen_y + 1):
+            margin_top    = curY
+            margin_bottom = screen_y - (margin_top + obj_y)
+
+            if margin_bottom == 0:
+                return curY
+            else:
+                break
+
+        return 0
+
+
+class Animation:
+    def __init__(self, folder) -> None:
+        self.folder = folder
+
 
 class draw:
     @staticmethod
@@ -66,4 +92,4 @@ if __name__ == "__main__":
     #    win_init()
     #    draw.img("dummy.png", 2, 2)
     #pygame.quit()
-    print(align.middle(704, 704))
+    print(align.center(704, 704))

@@ -10,7 +10,7 @@ def main():
                 active = False
 
         en.win_init()
-        en.draw.img("board1024.png", *en.align.middle(704, 704), scale_x=704, scale_y=704)
+        en.draw.img("board1024.png", *en.align.center(640, 640), scale_x=640, scale_y=640)
         pygame.display.flip()
         clock.tick(en.RATE)
 
