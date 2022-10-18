@@ -9,3 +9,7 @@ class Game:
     def __init__(self, id, opponent) -> None:
         self.id    = id
         self.opponent = opponent
+
+    def run(self):
+        running = True
+        
