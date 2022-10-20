@@ -1,5 +1,8 @@
+import string
+from numpy import row_stack
 import pygame
 import engine as en
+from pygame.sprite import Sprite
 
 class Opponent:
     def __init__(self, id, name, hp) -> None:
@@ -127,6 +130,68 @@ class Board:
     def draw(self):
         en.draw.img("board640.png", self.x, self.y)
 
+
+class Piece:
+    def __init__(self, spawn_field) -> None:
+        self.col = spawn_field[0]
+        self.row = spawn_field[1]
+
+    cols = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
+
+    def move(start: str, direction: str, amount: str) -> str:
+        cols = Piece.cols
+        rows = Piece.rows
+
+        st_col = cols.index(start[0])
+        st_row = rows.index(start[1])
+
+        col = cols[st_col]
+        row = rows[st_row]
+
+        if direction.upper() == "U":
+            row = rows[st_row - amount]
+        elif direction.upper() == "D":
+            row = rows[st_row + amount]
+        elif direction.upper() == "R":
+            col = cols[st_col + amount]
+        elif direction.upper() == "L":
+            col = cols[st_col - amount]
+
+        return f"{col}{row}"
+
+
+class King(Sprite, Piece):
+    def __init__(self, spawn_field, black: bool) -> None:
+        Sprite.__init__(self)
+        Piece.__init__(self, spawn_field)
+        self.spawn_field = spawn_field
+        self.black = black
+
+    def goto(self, field: str):
+        ...
+
+
+class Queen(Sprite):
+    ...
+
+
+class Rook(Sprite):
+    ...
+
+
+class Bishop(Sprite):
+    ...
+
+
+class Knight(Sprite):
+    ...
+
+
+class Pawn(Sprite):
+    ...
+
+
 class Game:
     def __init__(self, id, opponent) -> None:
         self.id    = id
@@ -155,4 +220,5 @@ class Game:
             clock.tick(en.RATE)
 
 
-
+if __name__ == '__main__':
+    print(Piece.move("A4", "D", 3))
