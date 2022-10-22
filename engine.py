@@ -5,6 +5,8 @@ RATE  = 60
 WIDTH, HEIGHT = 1600, 900
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("ChessFighterz Development")
+IKONE = pygame.image.load(os.path.join("Assets", 'favicon.png'))
+pygame.display.set_icon(IKONE)
 
 WHITE = (255, 255, 255)
 BLACK = (0,   0,   0  )

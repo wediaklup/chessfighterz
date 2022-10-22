@@ -11,12 +11,11 @@ def main():
                 active = False
 
         en.win_init()
-        game = gm.Game("root/test", "mangus")
-        game.run()
-        print("exited")
-        pygame.display.flip()
-        clock.tick(en.RATE)
 
+        auishdj = gm.Game("vierundfuenfzig", "mangus sarlcen")
+        auishdj.run()
+
+        clock.tick(en.RATE)
     pygame.quit()
 
 if __name__ == '__main__':

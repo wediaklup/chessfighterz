@@ -1,3 +1,4 @@
+from re import T
 import string
 from numpy import row_stack
 import pygame
@@ -168,28 +169,111 @@ class King(Sprite, Piece):
         self.spawn_field = spawn_field
         self.black = black
 
+    def get_available_moves(self) -> list:
+        # Einmal in jede Richtung
+        result = [
+            Piece.move(self.spawn_field, "U", 1),
+            Piece.move(self.spawn_field, "D", 1),
+            Piece.move(self.spawn_field, "L", 1),
+            Piece.move(self.spawn_field, "R", 1),
+            Piece.move(Piece.move(self.spawn_field, "U", 1), "L", 1),
+            Piece.move(Piece.move(self.spawn_field, "U", 1), "R", 1),
+            Piece.move(Piece.move(self.spawn_field, "D", 1), "L", 1),
+            Piece.move(Piece.move(self.spawn_field, "D", 1), "R", 1),
+        ]
+
+        return result
+
     def goto(self, field: str):
         ...
 
+    def draw(self, board: Board):
+        x = board.field_coords[self.spawn_field][0]
+        y = board.field_coords[self.spawn_field][1]
 
-class Queen(Sprite):
-    ...
-
-
-class Rook(Sprite):
-    ...
+        en.draw.img('koenig.png' if self.black else 'wKOENIG.png', x, y, 64, 64)
 
 
-class Bishop(Sprite):
-    ...
+class Queen(Sprite, Piece):
+    def __init__(self, spawn_field, black: bool) -> None:
+        Sprite.__init__(self)
+        Piece.__init__(self, spawn_field)
+        self.spawn_field = spawn_field
+        self.black = black
+
+    def draw(self, board: Board):
+        x = board.field_coords[self.spawn_field][0]
+        y = board.field_coords[self.spawn_field][1]
+
+        en.draw.img('koeinigin.png' if self.black else 'wKOEINIGIN.png', x, y, 64, 64)
 
 
-class Knight(Sprite):
-    ...
+class Rook(Sprite, Piece):
+    def __init__(self, spawn_field, black: bool) -> None:
+        Sprite.__init__(self)
+        Piece.__init__(self, spawn_field)
+        self.spawn_field = spawn_field
+        self.black = black
+
+    def draw(self, board: Board):
+        x = board.field_coords[self.spawn_field][0]
+        y = board.field_coords[self.spawn_field][1]
+
+        en.draw.img('rook.png' if self.black else 'wROOK.png', x, y, 64, 64)
 
 
-class Pawn(Sprite):
-    ...
+class Bishop(Sprite, Piece):
+    def __init__(self, spawn_field, black: bool) -> None:
+        Sprite.__init__(self)
+        Piece.__init__(self, spawn_field)
+        self.spawn_field = spawn_field
+        self.black = black
+
+    def draw(self, board: Board):
+        x = board.field_coords[self.spawn_field][0]
+        y = board.field_coords[self.spawn_field][1]
+
+        en.draw.img('bishop.png' if self.black else 'wBISHOP.png', x, y, 64, 64)
+
+
+class Knight(Sprite, Piece):
+    def __init__(self, spawn_field, black: bool) -> None:
+        Sprite.__init__(self)
+        Piece.__init__(self, spawn_field)
+        self.spawn_field = spawn_field
+        self.black = black
+
+    def draw(self, board: Board):
+        x = board.field_coords[self.spawn_field][0]
+        y = board.field_coords[self.spawn_field][1]
+
+        en.draw.img('knight.png' if self.black else 'wKNIGHT.png', x, y, 64, 64)
+
+
+class Pawn(Sprite, Piece):
+    def __init__(self, spawn_field, black: bool) -> None:
+        Sprite.__init__(self)
+        Piece.__init__(self, spawn_field)
+        self.spawn_field = spawn_field
+        self.black = black
+
+    def get_available_moves(self) -> list:
+        # Einmal in jede Richtung
+        result = [
+            Piece.move(self.spawn_field, "U", 1),
+            Piece.move(self.spawn_field, "U", 2),
+        ]
+
+        return result
+
+    def goto(self, field: str):
+        ...
+
+    def draw(self, board: Board):
+        x = board.field_coords[self.spawn_field][0]
+        y = board.field_coords[self.spawn_field][1]
+
+        en.draw.img('pawn.png' if self.black else 'wPAWN.png', x, y, 64, 64)
 
 
 class Game:
@@ -198,27 +282,140 @@ class Game:
         self.opponent = opponent
 
     def run(self):
-        clock = pygame.time.Clock()
-        running = True
+        #clock = pygame.time.Clock()
+        #running = True
 
-        while running:
-            board = Board(en.align.centerX(640), en.align.bottom(640))
-            board.draw()
-            en.draw.img("actWin300.png", 0, en.align.bottom(700))
+        print("ichw erde gerannt")
 
-            for event in pygame.event.get():
-                if event.type == pygame.K_DOWN:
-                    print("down")
-                elif event.type == pygame.K_x:
-                    print("x")
-                    running = False
-                elif event.type == pygame.QUIT:
-                    print("quit")
-                    running = False
+        board = Board(en.align.centerX(640), en.align.bottom(640))
+        board.draw()
+        en.draw.img("actWin300.png", 0, en.align.bottom(700))
 
-            pygame.display.flip()
-            clock.tick(en.RATE)
+        b_king  = King("E1", True)
+        b_pawn1 = Pawn("A2", True)
+        b_pawn2 = Pawn("B2", True)
+        b_pawn3 = Pawn("C2", True)
+        b_pawn4 = Pawn("D2", True)
+        b_pawn5 = Pawn("E2", True)
+        b_pawn6 = Pawn("F2", True)
+        b_pawn7 = Pawn("G2", True)
+        b_pawn8 = Pawn("H2", True)
+        b_rookaUNO = Rook("A1", True)
+        b_rookaDUE = Rook("H1", True)
+        b_knight1 = Knight("B1", True)
+        b_knight2 = Knight("G1", True)
+        b_bishop1 = Bishop("C1", True)
+        b_bishop2 = Bishop("F1", True)
+        b_koninganga = Queen("D1", True)
+
+        w_king  = King("E8", False)
+        w_pawn1 = Pawn("A7", False)
+        w_pawn2 = Pawn("B7", False)
+        w_pawn3 = Pawn("C7", False)
+        w_pawn4 = Pawn("D7", False)
+        w_pawn5 = Pawn("E7", False)
+        w_pawn6 = Pawn("F7", False)
+        w_pawn7 = Pawn("G7", False)
+        w_pawn8 = Pawn("H7", False)
+        w_rookaUNO = Rook("A8", False)
+        w_rookaDUE = Rook("H8", False)
+        w_knight1 = Knight("B8", False)
+        w_knight2 = Knight("G8", False)
+        w_bishop1 = Bishop("C8", False)
+        w_bishop2 = Bishop("F8", False)
+        w_koninganga = Queen("D8", False)
+
+        b_king.draw(board)
+        b_pawn1.draw(board)
+        b_pawn2.draw(board)
+        b_pawn3.draw(board)
+        b_pawn4.draw(board)
+        b_pawn5.draw(board)
+        b_pawn6.draw(board)
+        b_pawn7.draw(board)
+        b_pawn8.draw(board)
+        b_knight1.draw(board)
+        b_knight2.draw(board)
+        b_bishop1.draw(board)
+        b_bishop2.draw(board)
+        b_koninganga.draw(board)
+        b_rookaUNO.draw(board)
+        b_rookaDUE.draw(board)
+
+        w_king.draw(board)
+        w_pawn1.draw(board)
+        w_pawn2.draw(board)
+        w_pawn3.draw(board)
+        w_pawn4.draw(board)
+        w_pawn5.draw(board)
+        w_pawn6.draw(board)
+        w_pawn7.draw(board)
+        w_pawn8.draw(board)
+        w_knight1.draw(board)
+        w_knight2.draw(board)
+        w_bishop1.draw(board)
+        w_bishop2.draw(board)
+        w_koninganga.draw(board)
+        w_rookaUNO.draw(board)
+        w_rookaDUE.draw(board)
+
+        #while running:
+        #    board = Board(en.align.centerX(640), en.align.bottom(640))
+        #    board.draw()
+        #    en.draw.img("actWin300.png", 0, en.align.bottom(700))
+#
+        #    for event in pygame.event.get():
+        #        if event.type == pygame.K_DOWN:
+        #            print("down")
+        #        elif event.type == pygame.K_x:
+        #            print("x")
+        #            running = False
+        #        elif event.type == pygame.QUIT:
+        #            print("quit")
+        #            running = False
+#
+        #    pygame.display.flip()
+        #    clock.tick(en.RATE)
 
 
 if __name__ == '__main__':
-    print(Piece.move("A4", "D", 3))
+    clock = pygame.time.Clock()
+    active = True
+    while active:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                active = False
+
+        en.win_init()
+
+        auishdj = Game("vierundfuenfzig", "mangus sarlcen")
+        auishdj.run()
+
+        #board = Board(en.align.centerX(640), en.align.bottom(640))
+        #board.draw()
+        #en.draw.img("actWin300.png", 0, en.align.bottom(700))
+
+        #b_king  = King("E1", True)
+        #b_pawn1 = Pawn("A1", True)
+        #b_pawn2 = Pawn("A2", True)
+        #b_pawn3 = Pawn("A3", True)
+        #b_pawn4 = Pawn("A4", True)
+        #b_pawn5 = Pawn("A5", True)
+        #b_pawn6 = Pawn("A6", True)
+        #b_pawn7 = Pawn("A7", True)
+        #b_pawn8 = Pawn("A8", True)
+
+        #b_king.draw(board)
+        #b_pawn1.draw(board)
+        #b_pawn2.draw(board)
+        #b_pawn3.draw(board)
+        #b_pawn4.draw(board)
+        #b_pawn5.draw(board)
+        #b_pawn6.draw(board)
+        #b_pawn7.draw(board)
+        #b_pawn8.draw(board)
+
+        pygame.display.update()
+
+        clock.tick(en.RATE)
+    pygame.quit()
