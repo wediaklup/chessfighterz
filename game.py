@@ -1,13 +1,12 @@
-from re import T
-import string
-from numpy import row_stack
 import pygame
 import engine as en
 from pygame.sprite import Sprite
 
+
 class Opponent:
     def __init__(self, id, name, hp) -> None:
         pass
+
 
 class Board:
     def __init__(self, x, y) -> None:
@@ -133,34 +132,45 @@ class Board:
 
 
 class Piece:
+    cols = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
+
     def __init__(self, spawn_field, field) -> None:
         self.col = spawn_field[0]
         self.row = spawn_field[1]
         self.field = field
 
-    cols = ["A", "B", "C", "D", "E", "F", "G", "H"]
-    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
-
-    def move(start: str, direction: str, amount: str) -> str:
+    @staticmethod
+    def move(start: str, direction: str, steps: int) -> str:
+        """Computes a move with steps steps from start in direction.
+        :param start: Field to start
+        :param direction: Direction to go (U, R, D, L)
+        :param steps: Number of steps to go
+        :return: Field to end, "II" if invalid"""
         cols = Piece.cols
         rows = Piece.rows
 
-        st_col = cols.index(start[0])
-        st_row = rows.index(start[1])
+        start_col = cols.index(start[0])
+        start_row = rows.index(start[1])
 
-        col = cols[st_col]
-        row = rows[st_row]
+        col = cols[start_col]
+        row = rows[start_row]
 
         if direction.upper() == "U":
-            row = rows[st_row - amount]
+            row = rows[start_row - steps] if start_row - steps >= 0 else "I"
         elif direction.upper() == "D":
-            row = rows[st_row + amount]
+            row = rows[start_row + steps] if start_row + steps < len(rows) else "I"
         elif direction.upper() == "R":
-            col = cols[st_col + amount]
+            col = cols[start_col + steps] if start_col + steps < len(cols) else "I"
         elif direction.upper() == "L":
-            col = cols[st_col - amount]
-
+            col = cols[start_col - steps] if start_col - steps >= 0 else "I"
+            
+        if "I" in (col, row):
+            return "II"
         return f"{col}{row}"
+
+    def get_available_moves(self):
+        pass
 
 
 class King(Sprite, Piece):
@@ -299,8 +309,8 @@ class Game:
         self.opponent = opponent
 
     def run(self):
-        #clock = pygame.time.Clock()
-        #running = True
+        clock = pygame.time.Clock()
+        running = True
 
         print("ichw erde gerannt")
 
@@ -375,24 +385,25 @@ class Game:
         w_koninganga.draw(board)
         w_rookaUNO.draw(board)
         w_rookaDUE.draw(board)
-
-        #while running:
-        #    board = Board(en.align.centerX(640), en.align.bottom(640))
-        #    board.draw()
-        #    en.draw.img("actWin300.png", 0, en.align.bottom(700))
+        
+        
+        while running:
+            board = Board(en.align.centerX(640), en.align.bottom(640))
+            board.draw()
+            en.draw.img("actWin300.png", 0, en.align.bottom(700))
 #
-        #    for event in pygame.event.get():
-        #        if event.type == pygame.K_DOWN:
-        #            print("down")
-        #        elif event.type == pygame.K_x:
-        #            print("x")
-        #            running = False
-        #        elif event.type == pygame.QUIT:
-        #            print("quit")
-        #            running = False
+            for event in pygame.event.get():
+                if event.type == pygame.K_DOWN:
+                    print("down")
+                elif event.type == pygame.K_x:
+                    print("x")
+                    running = False
+                elif event.type == pygame.QUIT:
+                    print("quit")
+                    running = False
 #
-        #    pygame.display.flip()
-        #    clock.tick(en.RATE)
+            pygame.display.flip()
+            clock.tick(en.RATE)
 
 
 if __name__ == '__main__':
