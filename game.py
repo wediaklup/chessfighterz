@@ -133,9 +133,10 @@ class Board:
 
 
 class Piece:
-    def __init__(self, spawn_field) -> None:
+    def __init__(self, spawn_field, field) -> None:
         self.col = spawn_field[0]
         self.row = spawn_field[1]
+        self.field = field
 
     cols = ["A", "B", "C", "D", "E", "F", "G", "H"]
     rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
@@ -201,6 +202,10 @@ class Queen(Sprite, Piece):
         self.spawn_field = spawn_field
         self.black = black
 
+    def get_available_moves(): ...
+
+    def goto(self, field: str): ...
+
     def draw(self, board: Board):
         x = board.field_coords[self.spawn_field][0]
         y = board.field_coords[self.spawn_field][1]
@@ -214,6 +219,10 @@ class Rook(Sprite, Piece):
         Piece.__init__(self, spawn_field)
         self.spawn_field = spawn_field
         self.black = black
+
+    def get_available_moves(self): ...
+
+    def goto(self, field: str): ...
 
     def draw(self, board: Board):
         x = board.field_coords[self.spawn_field][0]
@@ -229,6 +238,10 @@ class Bishop(Sprite, Piece):
         self.spawn_field = spawn_field
         self.black = black
 
+    def get_available_moves(self): ...
+
+    def goto(self, field: str): ...
+
     def draw(self, board: Board):
         x = board.field_coords[self.spawn_field][0]
         y = board.field_coords[self.spawn_field][1]
@@ -242,6 +255,10 @@ class Knight(Sprite, Piece):
         Piece.__init__(self, spawn_field)
         self.spawn_field = spawn_field
         self.black = black
+
+    def get_available_moves(self): ...
+
+    def goto(self, field: str): ...
 
     def draw(self, board: Board):
         x = board.field_coords[self.spawn_field][0]
