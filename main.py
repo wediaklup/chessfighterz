@@ -1,22 +1,22 @@
 import pygame
-import engine as en
-import game   as gm
+from sys import exit
 
-def main():
-    clock = pygame.time.Clock()
-    active = True
-    while active:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                active = False
+# Constants
+WIDTH  = 1600
+HEIGHT = 900
 
-        en.win_init()
+# Initialising Pygame
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("ChessFighterz Development")
+clock = pygame.time.Clock()
 
-        auishdj = gm.Game("vierundfuenfzig", "mangus sarlcen")
-        auishdj.run()
+# Mainloop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
 
-        clock.tick(en.RATE)
-    pygame.quit()
-
-if __name__ == '__main__':
-    main()
+    pygame.display.update()
+    clock.tick(60)
